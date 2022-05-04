@@ -5,7 +5,7 @@ import time
 capture = cv.VideoCapture(0)
 
 mpHands = mp.solutions.hands
-hands = mpHands.Hands()
+hands = mpHands.Hands(max_num_hands=4)
 mpDraw = mp.solutions.drawing_utils
 while True:
     success, img = capture.read()
@@ -14,7 +14,7 @@ while True:
 
     if results.multi_hand_landmarks:
         for handlms in results.multi_hand_landmarks:
-            mpDraw.draw_landmarks(img,handlms)
+            mpDraw.draw_landmarks(img,handlms, mpHands.HAND_CONNECTIONS)
 
     cv.imshow("Image", img)
     cv.waitKey(1)
